@@ -1,5 +1,13 @@
 version: 2.1
 
+workflows:
+  test-env-workflow:
+    jobs:
+      - print_hello
+      - print_world:
+          requires: print_hello
+      - print_appname
+
 jobs:
   print_hello:
     docker:
@@ -13,16 +21,10 @@ jobs:
       - run: echo world
   print_appname:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/base:2020.01
     steps:
-      - run: echo $APP_NAME
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  welcome-flow:
-    jobs:
-      - print_hello
-      - print_world:
-          requires:
-            - print_hello
-      - print_appname
+      - checkout
+      - run:
+          name: "echo an env file that is part of our project"
+          command: |
+            echo $APP_NAME
