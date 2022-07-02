@@ -5,17 +5,17 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      run: echo hello
+      - run: echo hello
   print_world:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      run: echo world
+      - run: echo world
   print_appname:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      run: echo $APP_NAME
+      - run: echo $APP_NAME
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
